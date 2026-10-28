@@ -1,0 +1,56 @@
+# Vista web della documentazione su GitHub Pages.
+# - Su ogni pull request: controlla vista-web/documenti.toml, i nomi dei PDF e
+#   che ogni PDF sia elencato.
+# - Su main: genera la pagina con i documenti presenti e la pubblica.
+name: Vista web
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: vista-web-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  genera:
+    name: Genera la vista web
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Scarica il repository
+        uses: actions/checkout@v4
+
+      - name: Controlla l'elenco dei documenti (pull request)
+        if: github.event_name == 'pull_request'
+        run: python3 vista-web/genera.py --controlla
+
+      - name: Genera la pagina
+        run: python3 vista-web/genera.py --uscita _site
+
+      - name: Prepara la pubblicazione (main)
+        if: github.event_name != 'pull_request'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  pubblica:
+    name: Pubblica la vista web
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    needs: genera
+    runs-on: ubuntu-24.04
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.pubblicazione.outputs.page_url }}
+    steps:
+      - name: Pubblica su GitHub Pages
+        id: pubblicazione
+        uses: actions/deploy-pages@v4
