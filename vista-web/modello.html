@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>$nome – Documentazione di progetto</title>
+<meta name="description" content="Documentazione di progetto di $nome ($gruppo): $sottotitolo">
+<link rel="icon" href="$logo">
+<style>
+  :root {
+    --sfondo: #f5f6f8;
+    --superficie: #ffffff;
+    --testo: #1b1f24;
+    --testo-tenue: #59636e;
+    --bordo: #d9dee4;
+    --accento: #0b4a7a;
+    --accento-tenue: #e9f1fb;
+    --accento-bordo: #b9d0ee;
+    --raggio: 10px;
+    --ombra: 0 1px 2px rgba(16, 24, 40, .06), 0 1px 3px rgba(16, 24, 40, .08);
+    color-scheme: light dark;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --sfondo: #0f1216;
+      --superficie: #171b21;
+      --testo: #e6e9ed;
+      --testo-tenue: #9ba5b0;
+      --bordo: #2c333c;
+      --accento: #7db8e8;
+      --accento-tenue: #15233a;
+      --accento-bordo: #2a4670;
+      --ombra: none;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--sfondo);
+    color: var(--testo);
+    font: 16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+  a { color: var(--accento); }
+  a:focus-visible { outline: 3px solid var(--accento); outline-offset: 2px; border-radius: 4px; }
+  .salta { position: absolute; left: -9999px; }
+  .salta:focus { left: 16px; top: 16px; background: var(--superficie); padding: 8px 12px; z-index: 10; }
+  .contenitore { max-width: 1080px; margin: 0 auto; padding: 0 16px; }
+
+  .testata { background: var(--superficie); border-bottom: 1px solid var(--bordo); }
+  /* Banda a sette colori, dalle lettere del logo A-M-P-A-L-I-S */
+  .banda { height: 5px; background: linear-gradient(90deg,
+    #0079b6 0 14.29%, #14a814 14.29% 28.57%, #c618c8 28.57% 42.86%, #27bfc8 42.86% 57.14%,
+    #d2640f 57.14% 71.43%, #d7141a 71.43% 85.71%, #d6cf1a 85.71% 100%); }
+  .testata .contenitore { display: flex; align-items: center; gap: 20px; padding-top: 24px; padding-bottom: 24px; }
+  .logo { flex: none; width: 84px; height: 84px; border-radius: 50%; background: #fff; padding: 4px; border: 1px solid var(--bordo); }
+  .logo img { display: block; width: 100%; height: 100%; object-fit: contain; border-radius: 50%; }
+  .testata h1 { margin: 0; font-size: 1.9rem; line-height: 1.2; letter-spacing: -.01em; }
+  .testata p { margin: 4px 0 0; color: var(--testo-tenue); }
+  .testata .capitolato { color: var(--testo); font-weight: 500; }
+
+  .griglia { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 32px; padding-top: 32px; padding-bottom: 48px; align-items: start; }
+  @media (max-width: 880px) { .griglia { grid-template-columns: minmax(0, 1fr); gap: 24px; } }
+
+  .consegna { margin-bottom: 36px; }
+  .consegna-testata { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; border-bottom: 2px solid var(--testo); padding-bottom: 6px; margin-bottom: 18px; }
+  .consegna-testata h2 { margin: 0; font-size: 1.45rem; }
+  .consegna-testata time { color: var(--testo-tenue); font-variant-numeric: tabular-nums; }
+
+  .lettera {
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    background: var(--accento-tenue); border: 1px solid var(--accento-bordo); border-radius: var(--raggio);
+    padding: 18px 20px; margin-bottom: 22px; text-decoration: none; color: var(--testo);
+  }
+  .lettera:hover { border-color: var(--accento); }
+  .lettera-etichetta { display: block; font-size: .78rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--accento); }
+  .lettera-titolo { display: block; font-size: 1.25rem; font-weight: 650; margin-top: 2px; }
+  .lettera-meta { display: block; color: var(--testo-tenue); font-size: .92rem; margin-top: 2px; }
+  .lettera-freccia { font-size: 1.4rem; color: var(--accento); }
+
+  .blocchi { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+  @media (max-width: 640px) { .blocchi { grid-template-columns: minmax(0, 1fr); } }
+  .blocco { background: var(--superficie); border: 1px solid var(--bordo); border-radius: var(--raggio); padding: 16px 16px 8px; box-shadow: var(--ombra); }
+  .blocco h3 { margin: 0 0 10px; font-size: 1.05rem; }
+  .blocco h4 { margin: 16px 0 6px; font-size: .82rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--testo-tenue); }
+  .vuoto { margin: 0 0 10px; color: var(--testo-tenue); font-size: .95rem; }
+
+  .documenti { list-style: none; margin: 0 0 8px; padding: 0; }
+  .documenti li + li { border-top: 1px solid var(--bordo); }
+  .documenti a {
+    display: flex; align-items: baseline; gap: 10px;
+    padding: 10px 4px; text-decoration: none; color: var(--testo); border-radius: 6px;
+  }
+  .documenti a:hover .doc-titolo { color: var(--accento); text-decoration: underline; }
+  .doc-data, .doc-meta { flex: none; color: var(--testo-tenue); font-size: .9rem; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .doc-titolo { flex: 1 1 auto; min-width: 0; font-weight: 550; overflow-wrap: anywhere; }
+  .doc-freccia { flex: none; color: var(--accento); }
+
+  .gruppo { background: var(--superficie); border: 1px solid var(--bordo); border-radius: var(--raggio); padding: 18px; box-shadow: var(--ombra); }
+  .gruppo h2 { margin: 0 0 8px; font-size: 1.15rem; }
+  .gruppo h3 { margin: 16px 0 6px; font-size: .82rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--testo-tenue); }
+  .gruppo p { margin: 0; font-size: .95rem; }
+  .gruppo ul { margin: 0; padding-left: 18px; font-size: .95rem; }
+  .gruppo li { margin: 2px 0; overflow-wrap: anywhere; }
+
+  .nessuno { background: var(--superficie); border: 1px dashed var(--bordo); border-radius: var(--raggio); padding: 24px; color: var(--testo-tenue); }
+
+  footer { border-top: 1px solid var(--bordo); color: var(--testo-tenue); font-size: .88rem; }
+  footer .contenitore { padding-top: 16px; padding-bottom: 24px; }
+
+  @media (max-width: 520px) {
+    .testata .contenitore { gap: 14px; }
+    .logo { width: 64px; height: 64px; }
+    .testata h1 { font-size: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+<a class="salta" href="#contenuto">Vai ai documenti</a>
+<div class="banda" aria-hidden="true"></div>
+<header class="testata">
+  <div class="contenitore">
+    <div class="logo"><img src="$logo" alt="Logo di $nome" width="84" height="84"></div>
+    <div>
+      <h1>$nome</h1>
+      <p>$gruppo · $corso</p>
+      <p class="capitolato">$sottotitolo</p>
+    </div>
+  </div>
+</header>
+
+<div class="contenitore griglia">
+  <main id="contenuto">
+$consegne
+  </main>
+
+  <aside class="gruppo" aria-labelledby="titolo-gruppo">
+    <h2 id="titolo-gruppo">Il gruppo</h2>
+    <p>$presentazione</p>
+    <h3>Componenti</h3>
+    <ul>
+$componenti
+    </ul>
+    <h3>Contatti</h3>
+    <ul>
+      <li><a href="mailto:$email">$email</a></li>
+      <li><a href="$repository">Repository della documentazione</a></li>
+    </ul>
+  </aside>
+</div>
+
+<footer>
+  <div class="contenitore">Pagina aggiornata il $data_generazione$versione_sito. Ogni documento si apre in PDF in una nuova scheda.</div>
+</footer>
+</body>
+</html>
