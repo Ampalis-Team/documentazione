@@ -1,0 +1,156 @@
+# =====================================================================
+# Vista web della documentazione
+#
+# Regole:
+# - Il repository contiene solo i PDF dei documenti verificati e
+#   approvati: un documento compare nella vista web quando il suo PDF
+#   è su main, cioè dopo che il Responsabile ha unito la pull request
+#   (l'unione equivale all'approvazione del rilascio). Finché il PDF non
+#   c'è, la voce resta in attesa e non compare.
+# - La pull request che aggiunge un PDF, o ne pubblica una nuova
+#   versione, aggiorna qui la voce del documento (titolo, data, versione).
+#   Il controllo automatico sulla pull request segnala i PDF non elencati,
+#   le voci incomplete e i nomi di file che non seguono le regole.
+# - tipo:  "lettera" | "documento" | "verbale" | "diario"
+#   uso:   "esterno" | "interno"   (lettera e diario sono sempre esterni)
+#   data:  obbligatoria per lettera, verbale e diario, nel formato AAAA-MM-GG
+#   versione: obbligatoria per documenti e verbali (X.Y.Z); la lettera e il
+#   diario di bordo non hanno versione
+# - file: percorso del PDF dalla radice del repository, in
+#   documentazione-esterna/ o documentazione-interna/ secondo l'uso.
+#   Nomi in minuscolo, parole separate da trattini; se il file ha una data,
+#   viene per prima come AAAAMMGG, seguita da un trattino basso
+#   (es. 20261021_verbale-interno.pdf).
+# - Una sola Lettera di Presentazione per consegna, in evidenza in cima.
+#   I verbali e i diari di bordo si ordinano da soli dal più recente;
+#   i documenti compaiono nell'ordine di questo elenco.
+# =====================================================================
+
+[sito]
+nome = "Ampalis Team"
+gruppo = "Gruppo 2"
+corso = "Ingegneria del Software · Università degli Studi di Padova · a.a. 2026/2027"
+email = "ampalisteam@gmail.com"
+repository = "https://github.com/Ampalis-Team/documentazione"
+logo = "logo/logo_ampalis_team_colorato.png"
+sottotitolo = "Candidatura per il capitolato C4 (Gestione Veicoli e Servizi Post-Vendita), proposto da M31 S.r.l."
+presentazione = """
+Siamo sette studenti del corso di Ingegneria del Software dell'Università degli Studi di Padova. \
+In questa pagina raccogliamo i documenti di progetto pubblicati, divisi per consegna e, \
+come nel repository, in documentazione esterna e interna. \
+Lavoriamo per sprint, con ruoli a rotazione, e ogni documento è verificato da un componente diverso dal suo autore.\
+"""
+componenti = [
+  "Leonardo Baldan",
+  "Simone Buccolieri",
+  "Alex Buoso",
+  "Matteo Cetraro",
+  "Alessandro Cisco",
+  "Ivan Valente",
+  "Pietro Vigolo",
+]
+
+# ---------------------------------------------------------------------
+# Candidatura, 2026-10-30
+# ---------------------------------------------------------------------
+[[consegne]]
+id = "candidatura"
+titolo = "Candidatura"
+data = "2026-10-30"
+
+  [[consegne.documenti]]
+  titolo = "Lettera di Presentazione"
+  tipo = "lettera"
+  data = "2026-10-30"
+  file = "documentazione-esterna/20261030_lettera-di-presentazione.pdf"
+
+  [[consegne.documenti]]
+  titolo = "Valutazione dei Capitolati"
+  tipo = "documento"
+  uso = "esterno"
+  versione = "1.0.0"
+  file = "documentazione-esterna/valutazione-capitolati.pdf"
+
+  [[consegne.documenti]]
+  titolo = "Dichiarazione degli Impegni"
+  tipo = "documento"
+  uso = "esterno"
+  versione = "1.0.0"
+  file = "documentazione-esterna/dichiarazione-impegni.pdf"
+
+  [[consegne.documenti]]
+  titolo = "Verbale esterno con M31 S.r.l."
+  tipo = "verbale"
+  uso = "esterno"
+  data = "2026-10-22"
+  versione = "1.0.1"
+  file = "documentazione-esterna/verbali-esterni/20261022_verbale-esterno.pdf"
+
+  [[consegne.documenti]]
+  titolo = "Verbale esterno con Sanmarco Informatica S.p.A."
+  tipo = "verbale"
+  uso = "esterno"
+  data = "2026-10-23"
+  versione = "1.0.1"
+  file = "documentazione-esterna/verbali-esterni/20261023_verbale-esterno.pdf"
+
+  [[consegne.documenti]]
+  titolo = "Verbale esterno con Eggon S.r.l."
+  tipo = "verbale"
+  uso = "esterno"
+  data = "2026-10-29"
+  versione = "1.0.0"
+  file = "documentazione-esterna/verbali-esterni/20261029_verbale-esterno.pdf"
+
+  [[consegne.documenti]]
+  titolo = "Diario di bordo"
+  tipo = "diario"
+  data = "2026-10-26"
+  file = "documentazione-esterna/diari-di-bordo/20261026_diario-di-bordo.pdf"
+
+  [[consegne.documenti]]
+  titolo = "Way of Working"
+  tipo = "documento"
+  uso = "interno"
+  versione = "1.0.0"
+  file = "documentazione-interna/way-of-working.pdf"
+
+  [[consegne.documenti]]
+  titolo = "Verbale interno"
+  tipo = "verbale"
+  uso = "interno"
+  data = "2026-10-19"
+  versione = "1.1.0"
+  file = "documentazione-interna/20261019_verbale-interno.pdf"
+
+  [[consegne.documenti]]
+  titolo = "Verbale interno"
+  tipo = "verbale"
+  uso = "interno"
+  data = "2026-10-21"
+  versione = "1.1.0"
+  file = "documentazione-interna/20261021_verbale-interno.pdf"
+
+  [[consegne.documenti]]
+  titolo = "Verbale interno"
+  tipo = "verbale"
+  uso = "interno"
+  data = "2026-10-23"
+  versione = "1.0.1"
+  file = "documentazione-interna/20261023_verbale-interno.pdf"
+
+  [[consegne.documenti]]
+  titolo = "Verbale interno"
+  tipo = "verbale"
+  uso = "interno"
+  data = "2026-10-28"
+  versione = "1.0.0"
+  file = "documentazione-interna/20261028_verbale-interno.pdf"
+
+  [[consegne.documenti]]
+  titolo = "Verbale interno"
+  tipo = "verbale"
+  uso = "interno"
+  data = "2026-10-29"
+  versione = "1.0.0"
+  file = "documentazione-interna/20261029_verbale-interno.pdf"
