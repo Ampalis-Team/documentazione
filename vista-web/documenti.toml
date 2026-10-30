@@ -112,7 +112,7 @@ data = "2026-10-30"
   titolo = "Way of Working"
   tipo = "documento"
   uso = "interno"
-  versione = "1.0.0"
+  versione = "1.1.0"
   file = "documentazione-interna/way-of-working.pdf"
 
   [[consegne.documenti]]
