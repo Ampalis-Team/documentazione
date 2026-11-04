@@ -20,13 +20,13 @@ documentazione/
 └── .github/workflows/        # pubblicazione della vista web
 ```
 
-Il repository contiene solo i PDF dei documenti verificati e approvati; le bozze restano nel repository privato del gruppo. Le regole di lavoro sono nel *Way of Working*.
+Il repository contiene solo i PDF dei documenti verificati; le versioni X.0.0 sono quelle approvate per il rilascio dal Responsabile. Le bozze restano nel repository privato del gruppo. Le regole di lavoro, versionamento compreso, sono nelle *Norme di Progetto*.
 
 ## Vista web
 
-La pagina si rigenera a ogni modifica di `main` a partire da `vista-web/documenti.toml`. Un documento compare quando il suo PDF è su `main`, cioè dopo che il Responsabile ha unito la pull request.
+La pagina si rigenera a ogni modifica di `main` a partire da `vista-web/documenti.toml`. Un documento compare quando il suo PDF è su `main`, cioè dopo l'unione della pull request.
 
-La pull request che aggiunge un PDF, o ne pubblica una nuova versione, aggiorna anche la voce del documento in `vista-web/documenti.toml` (titolo, data, versione). Su ogni pull request un controllo automatico segnala i PDF non elencati, le voci incomplete e i nomi di file che non seguono le regole.
+Ogni pull request che aggiunge un PDF, o ne pubblica una nuova versione, aggiorna anche la voce del documento in `vista-web/documenti.toml` (titolo, data, versione): un PDF senza voce resta nel repository ma non compare nella vista web. Su ogni pull request un controllo automatico segnala i PDF non elencati, le voci incomplete e i nomi di file che non seguono le regole.
 
 Prova in locale, dalla radice del repository (serve Python 3.11 o successivo):
 
