@@ -2,13 +2,15 @@
 # Vista web della documentazione
 #
 # Regole:
-# - Il repository contiene solo i PDF dei documenti verificati e
-#   approvati: un documento compare nella vista web quando il suo PDF
-#   è su main, cioè dopo che il Responsabile ha unito la pull request
-#   (l'unione equivale all'approvazione del rilascio). Finché il PDF non
-#   c'è, la voce resta in attesa e non compare.
-# - La pull request che aggiunge un PDF, o ne pubblica una nuova
+# - Il repository contiene solo i PDF dei documenti verificati; le
+#   versioni X.0.0 sono quelle approvate per il rilascio dal Responsabile
+#   (regole di versionamento nelle Norme di Progetto). Un documento
+#   compare nella vista web quando il suo PDF è su main, cioè dopo
+#   l'unione della pull request. Finché il PDF non c'è, la voce resta in
+#   attesa e non compare.
+# - Ogni pull request che aggiunge un PDF, o ne pubblica una nuova
 #   versione, aggiorna qui la voce del documento (titolo, data, versione).
+#   Un PDF senza voce resta nel repository ma non compare nella vista web.
 #   Il controllo automatico sulla pull request segnala i PDF non elencati,
 #   le voci incomplete e i nomi di file che non seguono le regole.
 # - tipo:  "lettera" | "documento" | "verbale" | "diario"
@@ -68,14 +70,14 @@ data = "2026-10-30"
   titolo = "Valutazione dei Capitolati"
   tipo = "documento"
   uso = "esterno"
-  versione = "1.1.0"
+  versione = "1.2.0"
   file = "documentazione-esterna/valutazione-capitolati.pdf"
 
   [[consegne.documenti]]
   titolo = "Dichiarazione degli Impegni"
   tipo = "documento"
   uso = "esterno"
-  versione = "1.0.0"
+  versione = "1.1.0"
   file = "documentazione-esterna/dichiarazione-impegni.pdf"
 
   [[consegne.documenti]]
@@ -83,7 +85,7 @@ data = "2026-10-30"
   tipo = "verbale"
   uso = "esterno"
   data = "2026-10-22"
-  versione = "1.0.2"
+  versione = "1.1.0"
   file = "documentazione-esterna/verbali-esterni/20261022_verbale-esterno.pdf"
 
   [[consegne.documenti]]
@@ -91,7 +93,7 @@ data = "2026-10-30"
   tipo = "verbale"
   uso = "esterno"
   data = "2026-10-23"
-  versione = "1.0.2"
+  versione = "1.1.0"
   file = "documentazione-esterna/verbali-esterni/20261023_verbale-esterno.pdf"
 
   [[consegne.documenti]]
@@ -99,7 +101,7 @@ data = "2026-10-30"
   tipo = "verbale"
   uso = "esterno"
   data = "2026-10-29"
-  versione = "1.0.0"
+  versione = "1.1.0"
   file = "documentazione-esterna/verbali-esterni/20261029_verbale-esterno.pdf"
 
   [[consegne.documenti]]
@@ -109,18 +111,18 @@ data = "2026-10-30"
   file = "documentazione-esterna/diari-di-bordo/20261026_diario-di-bordo.pdf"
 
   [[consegne.documenti]]
-  titolo = "Way of Working"
+  titolo = "Norme di Progetto"
   tipo = "documento"
   uso = "interno"
-  versione = "1.1.0"
-  file = "documentazione-interna/way-of-working.pdf"
+  versione = "1.2.0"
+  file = "documentazione-interna/norme-di-progetto.pdf"
 
   [[consegne.documenti]]
   titolo = "Verbale interno"
   tipo = "verbale"
   uso = "interno"
   data = "2026-10-19"
-  versione = "1.1.0"
+  versione = "1.2.0"
   file = "documentazione-interna/20261019_verbale-interno.pdf"
 
   [[consegne.documenti]]
@@ -128,7 +130,7 @@ data = "2026-10-30"
   tipo = "verbale"
   uso = "interno"
   data = "2026-10-21"
-  versione = "1.1.0"
+  versione = "1.2.0"
   file = "documentazione-interna/20261021_verbale-interno.pdf"
 
   [[consegne.documenti]]
@@ -136,7 +138,7 @@ data = "2026-10-30"
   tipo = "verbale"
   uso = "interno"
   data = "2026-10-23"
-  versione = "1.0.1"
+  versione = "1.1.0"
   file = "documentazione-interna/20261023_verbale-interno.pdf"
 
   [[consegne.documenti]]
@@ -144,7 +146,7 @@ data = "2026-10-30"
   tipo = "verbale"
   uso = "interno"
   data = "2026-10-28"
-  versione = "1.0.0"
+  versione = "1.1.0"
   file = "documentazione-interna/20261028_verbale-interno.pdf"
 
   [[consegne.documenti]]
@@ -152,5 +154,5 @@ data = "2026-10-30"
   tipo = "verbale"
   uso = "interno"
   data = "2026-10-29"
-  versione = "1.0.0"
+  versione = "1.1.0"
   file = "documentazione-interna/20261029_verbale-interno.pdf"
