@@ -1,7 +1,8 @@
 # Vista web della documentazione su GitHub Pages.
-# - Su ogni pull request: controlla vista-web/documenti.toml, i nomi dei PDF e
-#   che ogni PDF sia elencato.
-# - Su main: genera la pagina con i documenti presenti e la pubblica.
+# - Su ogni pull request: controlla i PDF (nomi, versione in copertina,
+#   registro, consegna) e che ogni PDF già su main, se modificato, abbia una
+#   versione più alta.
+# - Su main: genera la pagina dai PDF presenti e la pubblica. Non fa commit.
 name: Vista web
 
 on:
@@ -25,13 +26,23 @@ jobs:
     steps:
       - name: Scarica il repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # serve la storia di main per confrontare le versioni
 
-      - name: Controlla l'elenco dei documenti (pull request)
+      - name: Prepara Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Installa pypdf
+        run: python -m pip install pypdf==5.9.0
+
+      - name: Controlla i PDF (pull request)
         if: github.event_name == 'pull_request'
-        run: python3 vista-web/genera.py --controlla
+        run: python vista-web/genera.py --controlla --base "origin/${{ github.base_ref }}"
 
       - name: Genera la pagina
-        run: python3 vista-web/genera.py --uscita _site
+        run: python vista-web/genera.py --uscita _site
 
       - name: Prepara la pubblicazione (main)
         if: github.event_name != 'pull_request'
