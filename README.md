@@ -14,6 +14,7 @@ documentazione/
 │   ├── verbali-esterni/
 │   └── diari-di-bordo/
 ├── documentazione-interna/   # documenti a uso del gruppo
+│   └── verbali-interni/
 ├── template/                 # modelli dei documenti
 ├── logo/                     # logo del gruppo
 ├── vista-web/                # generatore della vista web, testi della pagina e consegne
