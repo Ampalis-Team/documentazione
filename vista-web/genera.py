@@ -5,12 +5,12 @@ La pagina si costruisce dai PDF presenti in documentazione-esterna/ e
 documentazione-interna/, senza un elenco dei documenti da aggiornare a mano:
 
 - tipo e uso: dalla cartella e dal nome del file;
-- data di verbali, diari di bordo e Lettera di Presentazione: dal nome del file
-  (AAAAMMGG_...);
+- data di verbali, diari di bordo, report settimanali e Lettera di Presentazione:
+  dal nome del file (AAAAMMGG_...);
 - versione: dalla copertina del PDF ("Versione X.Y.Z");
 - titolo: per i documenti dai metadati del PDF, che il preambolo comune imposta;
   per i verbali esterni l'azienda si legge tra i destinatari in copertina;
-- consegna: verbali, diari e Lettera vanno nella prima consegna con data uguale
+- consegna: verbali, diari, report e Lettera vanno nella prima consegna con data uguale
   o successiva alla loro; un documento va nella consegna della sua ultima
   approvazione per il rilascio, letta nel registro delle modifiche, oppure, se
   non è mai stato approvato, nella prima consegna dopo la data in copertina.
@@ -63,6 +63,7 @@ NOMI_CON_DATA = {
     "verbale-interno": ("verbale", "interno", "Verbale interno"),
     "verbale-esterno": ("verbale", "esterno", "Verbale esterno"),
     "diario-di-bordo": ("diario", "esterno", "Diario di bordo"),
+    "report-settimanale": ("report", "esterno", "Report settimanale"),
 }
 CON_VERSIONE = ("documento", "verbale")
 
@@ -188,9 +189,10 @@ def analizza(relativo: str, consegne: list[dict]) -> tuple[dict | None, list[str
             return None, [f"{relativo}: il nome deve iniziare con la data, AAAAMMGG_{base}.pdf"]
     else:
         if data:
-            return None, [f"{relativo}: la data nel nome è solo per verbali, diari di bordo e "
+            return None, [f"{relativo}: la data nel nome è solo per verbali, diari di bordo, "
+                          "report settimanali e "
                           "Lettera di Presentazione (verbale-interno, verbale-esterno, "
-                          "diario-di-bordo, lettera-di-presentazione)"]
+                          "diario-di-bordo, report-settimanale, lettera-di-presentazione)"]
         tipo, uso_atteso, titolo = "documento", uso, ""
     problemi = []
     if uso != uso_atteso:
@@ -304,7 +306,7 @@ def e(testo) -> str:
 
 
 def titolo_html(d: dict) -> str:
-    # I nomi dei documenti vanno in corsivo; i verbali e il diario no.
+    # I nomi dei documenti vanno in corsivo; i verbali, il diario e il report no.
     if d["tipo"] in ("documento", "lettera"):
         return f"<em>{e(d['titolo'])}</em>"
     return e(d["titolo"])
@@ -318,7 +320,7 @@ def collegamento(d: dict, contenuto: str, etichetta: str, classe: str = "") -> s
 
 def riga(d: dict) -> str:
     data = (f'<time class="doc-data" datetime="{e(d["data"])}">{e(d["data"])}</time>'
-            if d["tipo"] in ("verbale", "diario") else "")
+            if d["tipo"] in ("verbale", "diario", "report") else "")
     versione = f'<span class="doc-meta">v{e(d["versione"])}</span>' if "versione" in d else ""
     etichetta = d["titolo"]
     if "data" in d:
@@ -348,6 +350,7 @@ def blocco(uso: str, documenti: list[dict]) -> str:
                                                  key=lambda d: d["titolo"].casefold())))
     parti.append(elenco_html(titolo_verbali, piu_recenti("verbale")))
     parti.append(elenco_html("Diari di bordo", piu_recenti("diario")))
+    parti.append(elenco_html("Report settimanali", piu_recenti("report")))
     parti.append("</section>")
     return "".join(parti)
 
