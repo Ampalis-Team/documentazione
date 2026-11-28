@@ -1,0 +1,48 @@
+# "Preparazione della consegna": da avviare a mano prima di RTB e PB
+# (Actions > Preparazione della consegna > Run workflow). Elenca i documenti
+# che hanno ancora bisogno dell'approvazione per il rilascio; se non ce ne
+# sono, crea una release di GitHub con i PDF della consegna.
+name: Preparazione della consegna
+
+on:
+  workflow_dispatch:
+    inputs:
+      consegna:
+        description: "Nome della release, per esempio RTB"
+        required: true
+      etichetta:
+        description: "Tag della release, per esempio rtb-2027-01-24"
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  consegna:
+    name: Preparazione della consegna
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Scarica il repository
+        uses: actions/checkout@v4
+
+      - name: Prepara Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Installa pypdf
+        run: python -m pip install pypdf==5.9.0
+
+      - name: Controlla le approvazioni
+        working-directory: automazioni
+        run: python consegna.py
+
+      - name: Crea la release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          CONSEGNA: ${{ inputs.consegna }}
+          ETICHETTA: ${{ inputs.etichetta }}
+        run: |
+          xargs -a consegna/elenco.txt gh release create "$ETICHETTA" \
+            --title "$CONSEGNA" --notes "Documenti della consegna $CONSEGNA, dal ramo main."
