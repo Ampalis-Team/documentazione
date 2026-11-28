@@ -1,0 +1,74 @@
+# "Consuntivo delle ore": ogni lunedì alle 7:00 (ora di Roma, 6:00 UTC
+# d'inverno) e a richiesta. Legge la Project Board (ore produttive), i verbali
+# (riunioni, solo per chi è tra i partecipanti) e il foglio delle ore pubblicato
+# come CSV (formazione e altro, variabile FOGLIO_ORE_CSV) e produce il
+# consuntivo dello sprint appena concluso (o di quello scelto), scaricabile
+# dagli artifact dell'esecuzione. Se mancano dei dati l'esecuzione fallisce e
+# si apre la issue di avviso "Riempire dati riguardanti ore produttive
+# mancanti, necessarie per il consuntivo (AAAA-MM-GG)".
+# Il token per la Project Board lo dà la GitHub App dell'organizzazione
+# (variabile APP_CLIENT_ID, secret APP_PRIVATE_KEY); serve anche la variabile
+# PROGETTO_NUMERO.
+# Gli errori delle esecuzioni programmate arrivano a chi ha modificato per
+# ultimo l'orario qui sotto: lo modifica l'Amministratore di ogni sprint.
+# Issue e commenti li scrive la GitHub App del gruppo (Ampalis Team
+# Automazioni), così risultano suoi e avviano gli altri workflow; finché l'app
+# non è configurata si usa il token predefinito delle Actions.
+name: Consuntivo delle ore
+
+on:
+  schedule:
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+    inputs:
+      sprint:
+        description: "Numero dello sprint (vuoto: quello appena concluso)"
+        required: false
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  consuntivo:
+    name: Consuntivo delle ore
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Scarica il repository
+        uses: actions/checkout@v4
+
+      - name: Prepara Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Installa pypdf
+        run: python -m pip install pypdf==5.9.0
+
+      - name: Ottieni il token della GitHub App
+        id: token-app
+        if: vars.APP_CLIENT_ID != ''
+        uses: actions/create-github-app-token@v3
+        with:
+          client-id: ${{ vars.APP_CLIENT_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+
+      - name: Calcola il consuntivo
+        working-directory: automazioni
+        env:
+          GITHUB_TOKEN: ${{ steps.token-app.outputs.token || github.token }}
+          PROJECT_TOKEN: ${{ steps.token-app.outputs.token }}
+          PROGETTO_NUMERO: ${{ vars.PROGETTO_NUMERO }}
+          FOGLIO_ORE_CSV: ${{ vars.FOGLIO_ORE_CSV }}
+          SPRINT: ${{ inputs.sprint }}
+        run: python consuntivo.py
+
+      - name: Salva il consuntivo
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: consuntivo
+          path: consuntivo/
+          if-no-files-found: ignore
