@@ -1,0 +1,50 @@
+# "Project Board automatica": completa le automazioni già comprese nella Project Board.
+# Nuove issue e pull request nell'iterazione in corso, pull request in
+# In corso, issue citate con "Refs #N" in un commit in In corso, issue chiuse
+# come non pianificate in Scartato.
+# Il token per la Project Board lo dà la GitHub App dell'organizzazione
+# (variabile APP_CLIENT_ID, secret APP_PRIVATE_KEY); serve anche la variabile
+# PROGETTO_NUMERO. Finché mancano, l'automazione non fa nulla.
+name: Project Board automatica
+
+on:
+  issues:
+    types: [opened, closed]
+  pull_request:
+    types: [opened, reopened]
+  push:
+
+permissions:
+  contents: read
+  issues: read
+
+jobs:
+  project:
+    name: Project Board automatica
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Scarica il repository
+        uses: actions/checkout@v4
+
+      - name: Prepara Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Ottieni il token della GitHub App
+        id: token-app
+        if: vars.APP_CLIENT_ID != ''
+        uses: actions/create-github-app-token@v3
+        with:
+          client-id: ${{ vars.APP_CLIENT_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+
+      - name: Aggiorna la Project Board
+        working-directory: automazioni
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          PROJECT_TOKEN: ${{ steps.token-app.outputs.token }}
+          PROGETTO_NUMERO: ${{ vars.PROGETTO_NUMERO }}
+        run: python project_board.py

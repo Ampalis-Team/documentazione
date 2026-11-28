@@ -1,0 +1,20 @@
+# =====================================================================
+# Calendario dei diari di bordo di Ampalis Team (I lotto)
+# Date ricavate dal calendario delle lezioni del corso (Calendario IS
+# 2026-2027): il lunedì, in aula. Lo tiene aggiornato l'Amministratore e
+# lo aggiorna quando il docente pubblica nuove date.
+# L'automazione delle issue ricorrenti crea la issue del diario di bordo
+# solo per le date di questo elenco: senza una data, nessuna issue.
+# Il 2026-12-07 non c'è diario (lezione T11).
+# =====================================================================
+
+date = [
+  "2026-10-26",
+  "2026-11-02",
+  "2026-11-09",
+  "2026-11-16",
+  "2026-11-23",
+  "2026-11-30",
+  "2026-12-14",
+  "2026-12-21",
+]
