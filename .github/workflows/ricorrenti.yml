@@ -1,0 +1,60 @@
+# "Issue ricorrenti" (orari di Roma; gli orari cron sono in UTC, un'ora in meno
+# d'inverno e due d'estate):
+# - domenica alle 20:00: issue del diario di bordo del lunedì, se la data è nel
+#   calendario dei diari (automazioni/calendario-diari.toml), e nell'ultima
+#   settimana di ogni sprint quella dell'aggiornamento del Piano di Progetto,
+#   assegnata al Responsabile uscente;
+# - lunedì alle 18:00, dopo la riunione: issue del verbale interno;
+# - martedì alle 20:00: issue del report settimanale per l'incontro con M31 del
+#   mercoledì, assegnata al Responsabile dello sprint;
+# - mercoledì alle 17:00, dopo l'incontro con M31: issue del verbale esterno.
+# Gli errori delle esecuzioni programmate arrivano a chi ha modificato per
+# ultimo l'orario qui sotto: lo modifica l'Amministratore di ogni sprint.
+# Issue e commenti li scrive la GitHub App del gruppo (Ampalis Team
+# Automazioni), così risultano suoi e avviano gli altri workflow; finché l'app
+# non è configurata si usa il token predefinito delle Actions.
+name: Issue ricorrenti
+
+on:
+  schedule:
+    - cron: "0 19 * * 0"
+    - cron: "0 17 * * 1"
+    - cron: "0 19 * * 2"
+    - cron: "0 16 * * 3"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  ricorrenti:
+    name: Issue ricorrenti
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Scarica il repository
+        uses: actions/checkout@v4
+
+      - name: Prepara Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Installa pypdf
+        run: python -m pip install pypdf==5.9.0
+
+      - name: Ottieni il token della GitHub App
+        id: token-app
+        if: vars.APP_CLIENT_ID != ''
+        uses: actions/create-github-app-token@v3
+        with:
+          client-id: ${{ vars.APP_CLIENT_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+
+      - name: Crea le issue
+        working-directory: automazioni
+        env:
+          GITHUB_TOKEN: ${{ steps.token-app.outputs.token || github.token }}
+        run: python ricorrenti.py

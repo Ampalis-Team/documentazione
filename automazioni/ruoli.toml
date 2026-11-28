@@ -1,0 +1,107 @@
+# =====================================================================
+# Componenti, ruoli e costi orari di Ampalis Team
+# Letto dalle automazioni (issue ricorrenti, consuntivo delle ore). Lo tiene
+# aggiornato l'Amministratore. Se uno sprint si allunga (Norme di Progetto,
+# metodo di lavoro), si spostano le date di quello sprint e dei successivi.
+#
+# - [componenti]: nome e cognome -> utente GitHub.
+# - [[sprint]]: numero, periodo e ruolo di ogni componente, dalla matrice di
+#   rotazione della Dichiarazione degli Impegni (Piano di Progetto, tabella
+#   della rotazione dei ruoli).
+# - previste: ore produttive preventivate per componente e ruolo nello sprint,
+#   dal Piano di Progetto (ripartizione della Dichiarazione degli Impegni);
+#   Re accanto al ruolo dello sprint sono le ore da Responsabile uscente per
+#   l'aggiornamento del Piano di Progetto. Il consuntivo le confronta con le ore
+#   effettive.
+# - [costi]: costo orario di ogni ruolo, in euro, dalla Dichiarazione degli
+#   Impegni.
+# Sigle dei ruoli: Re Responsabile, Am Amministratore, An Analista,
+# Pg Progettista, Pr Programmatore, Ve Verificatore.
+# =====================================================================
+
+[componenti]
+"Leonardo Baldan" = "giostanem-l"
+"Simone Buccolieri" = "SimoneBuccolieri"
+"Alex Buoso" = "aalex18"
+"Matteo Cetraro" = "mtcetraro"
+"Alessandro Cisco" = "alessandrocisco"
+"Ivan Valente" = "ivancodes1"
+"Pietro Vigolo" = "PiVigolo"
+
+[costi]
+Re = 30
+Am = 20
+An = 25
+Pg = 25
+Pr = 15
+Ve = 15
+
+[[sprint]]
+numero = 1
+inizio = "2026-11-04"
+fine = "2026-11-15"
+ruoli = { "Leonardo Baldan" = "An", "Simone Buccolieri" = "An", "Alex Buoso" = "Re", "Matteo Cetraro" = "Am", "Alessandro Cisco" = "Ve", "Ivan Valente" = "An", "Pietro Vigolo" = "Ve" }
+previste = { "Leonardo Baldan" = { An = 7 }, "Simone Buccolieri" = { An = 8 }, "Alex Buoso" = { Re = 5 }, "Matteo Cetraro" = { Am = 6 }, "Alessandro Cisco" = { Ve = 6 }, "Ivan Valente" = { An = 11 }, "Pietro Vigolo" = { Ve = 6 } }
+
+[[sprint]]
+numero = 2
+inizio = "2026-11-16"
+fine = "2026-11-29"
+ruoli = { "Leonardo Baldan" = "Pg", "Simone Buccolieri" = "Ve", "Alex Buoso" = "An", "Matteo Cetraro" = "Ve", "Alessandro Cisco" = "An", "Ivan Valente" = "Am", "Pietro Vigolo" = "Re" }
+previste = { "Leonardo Baldan" = { Pg = 16 }, "Simone Buccolieri" = { Ve = 6 }, "Alex Buoso" = { An = 12, Re = 0.5 }, "Matteo Cetraro" = { Ve = 6 }, "Alessandro Cisco" = { An = 12 }, "Ivan Valente" = { Am = 9 }, "Pietro Vigolo" = { Re = 3.5 } }
+
+[[sprint]]
+numero = 3
+inizio = "2026-11-30"
+fine = "2026-12-13"
+ruoli = { "Leonardo Baldan" = "Ve", "Simone Buccolieri" = "Pg", "Alex Buoso" = "Ve", "Matteo Cetraro" = "An", "Alessandro Cisco" = "Am", "Ivan Valente" = "Re", "Pietro Vigolo" = "Pr" }
+previste = { "Leonardo Baldan" = { Ve = 6 }, "Simone Buccolieri" = { Pg = 15 }, "Alex Buoso" = { Ve = 6 }, "Matteo Cetraro" = { An = 9 }, "Alessandro Cisco" = { Am = 6 }, "Ivan Valente" = { Re = 3.5 }, "Pietro Vigolo" = { Pr = 12, Re = 1.5 } }
+
+[[sprint]]
+numero = 4
+inizio = "2026-12-14"
+fine = "2026-12-27"
+ruoli = { "Leonardo Baldan" = "Re", "Simone Buccolieri" = "An", "Alex Buoso" = "Pr", "Matteo Cetraro" = "Am", "Alessandro Cisco" = "Ve", "Ivan Valente" = "Pr", "Pietro Vigolo" = "Ve" }
+previste = { "Leonardo Baldan" = { Re = 5.5 }, "Simone Buccolieri" = { An = 7 }, "Alex Buoso" = { Pr = 11 }, "Matteo Cetraro" = { Am = 5 }, "Alessandro Cisco" = { Ve = 5 }, "Ivan Valente" = { Pr = 11, Re = 1.5 }, "Pietro Vigolo" = { Ve = 5 } }
+
+[[sprint]]
+numero = 5
+inizio = "2026-12-28"
+fine = "2027-01-10"
+ruoli = { "Leonardo Baldan" = "An", "Simone Buccolieri" = "Pr", "Alex Buoso" = "Ve", "Matteo Cetraro" = "Re", "Alessandro Cisco" = "Pg", "Ivan Valente" = "Ve", "Pietro Vigolo" = "Am" }
+previste = { "Leonardo Baldan" = { An = 7, Re = 1.5 }, "Simone Buccolieri" = { Pr = 13 }, "Alex Buoso" = { Ve = 5 }, "Matteo Cetraro" = { Re = 4.5 }, "Alessandro Cisco" = { Pg = 7 }, "Ivan Valente" = { Ve = 6 }, "Pietro Vigolo" = { Am = 8 } }
+
+[[sprint]]
+numero = 6
+inizio = "2027-01-11"
+fine = "2027-01-24"
+ruoli = { "Leonardo Baldan" = "Ve", "Simone Buccolieri" = "Am", "Alex Buoso" = "Pg", "Matteo Cetraro" = "Ve", "Alessandro Cisco" = "Re", "Ivan Valente" = "Pg", "Pietro Vigolo" = "An" }
+previste = { "Leonardo Baldan" = { Ve = 6 }, "Simone Buccolieri" = { Am = 8 }, "Alex Buoso" = { Pg = 14 }, "Matteo Cetraro" = { Ve = 6, Re = 1.5 }, "Alessandro Cisco" = { Re = 5.5 }, "Ivan Valente" = { Pg = 8 }, "Pietro Vigolo" = { An = 11 } }
+
+[[sprint]]
+numero = 7
+inizio = "2027-01-25"
+fine = "2027-02-07"
+ruoli = { "Leonardo Baldan" = "Am", "Simone Buccolieri" = "Ve", "Alex Buoso" = "Re", "Matteo Cetraro" = "An", "Alessandro Cisco" = "Pg", "Ivan Valente" = "Ve", "Pietro Vigolo" = "Pg" }
+previste = { "Leonardo Baldan" = { Am = 6 }, "Simone Buccolieri" = { Ve = 6 }, "Alex Buoso" = { Re = 2 }, "Matteo Cetraro" = { An = 7 }, "Alessandro Cisco" = { Pg = 11, Re = 1.5 }, "Ivan Valente" = { Ve = 8 }, "Pietro Vigolo" = { Pg = 14 } }
+
+[[sprint]]
+numero = 8
+inizio = "2027-02-08"
+fine = "2027-02-21"
+ruoli = { "Leonardo Baldan" = "Pr", "Simone Buccolieri" = "Re", "Alex Buoso" = "Am", "Matteo Cetraro" = "Ve", "Alessandro Cisco" = "Pr", "Ivan Valente" = "Pg", "Pietro Vigolo" = "Ve" }
+previste = { "Leonardo Baldan" = { Pr = 22 }, "Simone Buccolieri" = { Re = 5.5 }, "Alex Buoso" = { Am = 10, Re = 1.5 }, "Matteo Cetraro" = { Ve = 7 }, "Alessandro Cisco" = { Pr = 22 }, "Ivan Valente" = { Pg = 11 }, "Pietro Vigolo" = { Ve = 7 } }
+
+[[sprint]]
+numero = 9
+inizio = "2027-02-22"
+fine = "2027-03-07"
+ruoli = { "Leonardo Baldan" = "Am", "Simone Buccolieri" = "Pr", "Alex Buoso" = "Ve", "Matteo Cetraro" = "Pr", "Alessandro Cisco" = "Ve", "Ivan Valente" = "Re", "Pietro Vigolo" = "Pr" }
+previste = { "Leonardo Baldan" = { Am = 6 }, "Simone Buccolieri" = { Pr = 13, Re = 1.5 }, "Alex Buoso" = { Ve = 7 }, "Matteo Cetraro" = { Pr = 22 }, "Alessandro Cisco" = { Ve = 8 }, "Ivan Valente" = { Re = 3.5 }, "Pietro Vigolo" = { Pr = 17 } }
+
+[[sprint]]
+numero = 10
+inizio = "2027-03-08"
+fine = "2027-03-19"
+ruoli = { "Leonardo Baldan" = "Ve", "Simone Buccolieri" = "Ve", "Alex Buoso" = "Pr", "Matteo Cetraro" = "Pg", "Alessandro Cisco" = "Am", "Ivan Valente" = "Pr", "Pietro Vigolo" = "Re" }
+previste = { "Leonardo Baldan" = { Ve = 7 }, "Simone Buccolieri" = { Ve = 7 }, "Alex Buoso" = { Pr = 16 }, "Matteo Cetraro" = { Pg = 16 }, "Alessandro Cisco" = { Am = 6 }, "Ivan Valente" = { Pr = 16, Re = 1.5 }, "Pietro Vigolo" = { Re = 5 } }

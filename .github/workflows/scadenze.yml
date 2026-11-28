@@ -1,0 +1,46 @@
+# "Scadenze": ogni giorno alle 7:00 (ora di Roma, 6:00 UTC d'inverno)
+# commenta le issue che scadono il giorno dopo, menzionando gli assegnatari.
+# Si può avviare anche a mano.
+# Gli errori delle esecuzioni programmate arrivano a chi ha modificato per
+# ultimo l'orario qui sotto: lo modifica l'Amministratore di ogni sprint.
+# Issue e commenti li scrive la GitHub App del gruppo (Ampalis Team
+# Automazioni), così risultano suoi e avviano gli altri workflow; finché l'app
+# non è configurata si usa il token predefinito delle Actions.
+name: Scadenze
+
+on:
+  schedule:
+    - cron: "0 6 * * *"
+  workflow_dispatch:
+
+permissions:
+  issues: write
+
+jobs:
+  scadenze:
+    name: Scadenze
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Scarica il repository
+        uses: actions/checkout@v4
+
+      - name: Prepara Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Ottieni il token della GitHub App
+        id: token-app
+        if: vars.APP_CLIENT_ID != ''
+        uses: actions/create-github-app-token@v3
+        with:
+          client-id: ${{ vars.APP_CLIENT_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+
+      - name: Controlla le scadenze
+        working-directory: automazioni
+        env:
+          GITHUB_TOKEN: ${{ steps.token-app.outputs.token || github.token }}
+        run: python scadenze.py
